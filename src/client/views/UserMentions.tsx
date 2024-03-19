@@ -53,7 +53,7 @@ const UserMentions = () => {
                   </Card.Text>
                 </Card.Body>
               </Card>
-            )):<h1>No mentions found by this user</h1>};
+            )):<h1 className='text-info'>No mentions found by this user</h1>};
           </div>
         </div>
       </Container>

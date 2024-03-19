@@ -11,5 +11,9 @@ export function getALLMentions() {
 }
 
 export function insertMention(chirp_id:number, user_id:number) {
-    return ModifyQuery('INSERT INTO mentions (chirp_id, user_id) VALUE (?);', [chirp_id, user_id])
+    return ModifyQuery('INSERT INTO mentions (chirp_id, user_id) VALUES (?,?);', [chirp_id, user_id])
+}
+
+export function deleteForChirp(chirp_id: number) {
+    return ModifyQuery("DELETE FROM Mentions WHERE chirp_id = ? ", [chirp_id]);
 }
