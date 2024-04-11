@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import db from '../db';
-import insertMentions from '../services/insertMentions';
+import db from '../../db';
+import insertMentions from '../../services/insertMentions';
 
 const router = Router();
 

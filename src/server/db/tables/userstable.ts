@@ -16,4 +16,6 @@ export function getOneUser(id:number) {
     return SelectQuery<IUsersRow>('SELECT * FROM users WHERE id = ?;', [id])
 }
 
-
+export function findUser(column:string, value: string) {
+    return SelectQuery<IUsersRow>('SELECT * FROM users WHERE ?? = ?',[column, value])
+}
