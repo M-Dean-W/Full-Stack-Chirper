@@ -19,3 +19,7 @@ export function getOneUser(id:number) {
 export function findUser(column:string, value: string) {
     return SelectQuery<IUsersRow>('SELECT * FROM users WHERE ?? = ?',[column, value])
 }
+
+export function registerUser(newUser: {email:string, handle:string, password: string}) {
+    return ModifyQuery('INSERT INTO users SET ?;', newUser)
+}

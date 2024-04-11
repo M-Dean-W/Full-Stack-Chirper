@@ -1,8 +1,19 @@
 import { Router } from 'express'
 import db from '../../db';
 import insertMentions from '../../services/insertMentions';
+import * as jwt from 'jsonwebtoken'
+import config from '../../config';
 
 const router = Router();
+
+// const bearerToken = req.headers.authorization?.split(' ')
+// const token = bearerToken && bearerToken[0] === 'Bearer' ? bearerToken[1] : null
+// if (!bearerToken || !token) {
+//     res.status(401).json({ message: 'unathorized' })
+//     return
+// }
+// const payload = jwt.verify(token, config.jwt.secret)
+
 
 // GET /api/chirps/id
 router.get('/:id', async (req,res) => {
