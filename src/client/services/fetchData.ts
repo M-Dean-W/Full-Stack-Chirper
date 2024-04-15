@@ -1,11 +1,19 @@
 const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : '';
 
+export const TOKEN_KEY = 'token'
+
 export async function fetchData(endpoint: string, method: string = 'GET', payload: any = null) {
     try {
+        const TOKEN = localStorage.getItem(TOKEN_KEY)
+
         const options: RequestInit = {
             method,
             headers: {}
         };
+
+        if(TOKEN) {
+            options.headers= { Authorization: `Bearer ${TOKEN}` }
+        }
 
         if (payload && method !== 'GET') {
             options.headers = {
@@ -22,6 +30,7 @@ export async function fetchData(endpoint: string, method: string = 'GET', payloa
 
         const data = await response.json();
         return data;
+
     } catch (error) {
         console.error(`Fetch error: ${error}`);
         throw error;

@@ -7,6 +7,8 @@ import ChirpDetails from './views/ChirpDetails';
 import ChirpIt from './views/ChirpIt';
 import EditChirp from './views/EditChirp';
 import UserMentions from './views/UserMentions';
+import PrivateRoute from './components/PrivateRoute';
+import Login from './views/Login';
 
 interface AppProps {}
 
@@ -26,7 +28,8 @@ const App = (props: AppProps) => {
                     </Navbar.Collapse>
             </Navbar>
 		<Routes>
-			<Route path="/" element={<Home />} />
+			<Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+            <Route path="/login" element={<Login />} />
             <Route path="/chirps/:id" element={<ChirpDetails />} />
             <Route path="/chirp" element={<ChirpIt />} />
             <Route path="/edit" element={<EditChirp />} />
