@@ -6,18 +6,19 @@ import config from '../../config';
 
 const router = Router();
 
-// const bearerToken = req.headers.authorization?.split(' ')
-// const token = bearerToken && bearerToken[0] === 'Bearer' ? bearerToken[1] : null
-// if (!bearerToken || !token) {
-//     res.status(401).json({ message: 'unathorized' })
-//     return
-// }
-// const payload = jwt.verify(token, config.jwt.secret)
-
 
 // GET /api/chirps/id
 router.get('/:id', async (req,res) => {
     try {
+        const bearerToken = req.headers.authorization?.split(' ')
+        const token = bearerToken && bearerToken[0] === 'Bearer' ? bearerToken[1] : null
+        if (!bearerToken || !token) {
+            res.status(401).json({ message: 'unathorized' })
+            return
+        }
+        const payload = jwt.verify(token, config.jwt.secret)
+        console.log(payload)
+        
         const id = parseInt(req.params.id, 10)
         const chirp = await db.chirps.getOneChirp(id)
         res.json(chirp)
@@ -30,6 +31,15 @@ router.get('/:id', async (req,res) => {
 //GET /api/chirps/
 router.get('/', async (req,res) => {
     try {
+        const bearerToken = req.headers.authorization?.split(' ')
+        const token = bearerToken && bearerToken[0] === 'Bearer' ? bearerToken[1] : null
+        if (!bearerToken || !token) {
+            res.status(401).json({ message: 'unathorized' })
+            return
+        }
+        const payload = jwt.verify(token, config.jwt.secret)
+        console.log(payload)
+
         const chirps = await db.chirps.getALLChirps()
         res.json(chirps)
     } catch (error) {
