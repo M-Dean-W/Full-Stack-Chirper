@@ -6,7 +6,7 @@ const CompleteNav = () => {
 
     const loc = useLocation();
 
-    if (loc.pathname === "/login") {
+    if (loc.pathname === "/login" || loc.pathname === "/register") {
       return <></>
     }    
     

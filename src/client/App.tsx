@@ -10,6 +10,7 @@ import UserMentions from './views/UserMentions';
 import PrivateRoute from './components/PrivateRoute';
 import Login from './views/Login';
 import CompleteNav from './components/CompleteNav';
+import Register from './views/Register';
 
 interface AppProps {}
 
@@ -21,6 +22,7 @@ const App = (props: AppProps) => {
 		<Routes>
 			<Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/chirps/:id" element={<ChirpDetails />} />
             <Route path="/chirp" element={<ChirpIt />} />
             <Route path="/edit" element={<EditChirp />} />
