@@ -1,8 +1,7 @@
 import { Router } from 'express'
 import db from '../../db';
 import insertMentions from '../../services/insertMentions';
-import * as jwt from 'jsonwebtoken'
-import config from '../../config';
+import tokenCheck from '../../middleware/tokenCheck';
 
 const router = Router();
 
@@ -10,15 +9,6 @@ const router = Router();
 // GET /api/chirps/id
 router.get('/:id', async (req,res) => {
     try {
-        const bearerToken = req.headers.authorization?.split(' ')
-        const token = bearerToken && bearerToken[0] === 'Bearer' ? bearerToken[1] : null
-        if (!bearerToken || !token) {
-            res.status(401).json({ message: 'unathorized' })
-            return
-        }
-        const payload = jwt.verify(token, config.jwt.secret)
-        console.log(payload)
-        
         const id = parseInt(req.params.id, 10)
         const chirp = await db.chirps.getOneChirp(id)
         res.json(chirp)
@@ -31,15 +21,6 @@ router.get('/:id', async (req,res) => {
 //GET /api/chirps/
 router.get('/', async (req,res) => {
     try {
-        const bearerToken = req.headers.authorization?.split(' ')
-        const token = bearerToken && bearerToken[0] === 'Bearer' ? bearerToken[1] : null
-        if (!bearerToken || !token) {
-            res.status(401).json({ message: 'unathorized' })
-            return
-        }
-        const payload = jwt.verify(token, config.jwt.secret)
-        console.log(payload)
-
         const chirps = await db.chirps.getALLChirps()
         res.json(chirps)
     } catch (error) {
@@ -49,7 +30,7 @@ router.get('/', async (req,res) => {
 });
 
 //POST /api/chirps/
-router.post('/', async (req,res) => {
+router.post('/', tokenCheck, async (req,res) => {
     try {
         const { user_id, body, location } = req.body
         const chirpResult = await db.chirps.insertChirp(user_id, body, location || '')
@@ -62,7 +43,7 @@ router.post('/', async (req,res) => {
 });
 
 // PUT /api/chirps/id
-router.put("/:id", async (req, res) => {
+router.put("/:id", tokenCheck, async (req, res) => {
     try {
         const { user_id, body, location } = req.body;
         const id = Number(req.params.id);
@@ -76,7 +57,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE /api/chirps/id
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", tokenCheck, async (req, res) => {
     try {
         const id = Number(req.params.id);
         await db.mentions.deleteForChirp(id)
