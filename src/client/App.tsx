@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Routes, NavLink, useLocation } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
 import Home from './views/Home';
@@ -15,6 +15,7 @@ import Register from './views/Register';
 interface AppProps {}
 
 const App = (props: AppProps) => {
+	
 	
 	return (
 		<BrowserRouter>

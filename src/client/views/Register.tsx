@@ -25,7 +25,7 @@ const Register = (props: RegisterProps) => {
         localStorage.setItem(TOKEN_KEY, token)
         navigate('/')
       })
-      .catch(()=> console.log('something went wrong/invalid credentials'))
+      .catch(()=> alert('invalid credentials/Username taken'))
   };
   
 

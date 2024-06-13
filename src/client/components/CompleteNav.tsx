@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { useLocation, NavLink } from 'react-router-dom';
-import { Navbar, Nav } from 'react-bootstrap';
+import { useLocation, NavLink, useNavigate } from 'react-router-dom';
+import { Navbar, Nav, Button } from 'react-bootstrap';
 
 const CompleteNav = () => {
 
@@ -9,6 +9,11 @@ const CompleteNav = () => {
     if (loc.pathname === "/login" || loc.pathname === "/register") {
       return <></>
     }    
+    const navigate = useNavigate()
+        const logout = () => {
+            localStorage.removeItem('token')
+            navigate('/login')
+        }
     
     return <Navbar bg="info" expand="lg">
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -18,6 +23,7 @@ const CompleteNav = () => {
             <Nav.Link as={NavLink} to="/chirp">Chirp It!</Nav.Link>
             <Nav.Link as={NavLink} to="/edit">Edit Chrips</Nav.Link>
             <Nav.Link as={NavLink} to="/mentions">User Mentions</Nav.Link>
+            <Button onClick={logout} className="btn-danger">Logout</Button>
         </Nav>
     </Navbar.Collapse>
 </Navbar>
