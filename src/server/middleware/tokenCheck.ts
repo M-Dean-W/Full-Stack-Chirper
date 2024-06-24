@@ -4,6 +4,7 @@ import type { RequestHandler } from "express";
 import { Payload } from "../types";
 
 const tokenCheck: RequestHandler = (req, res, next) => {
+    
     if (!req.headers.authorization) {
         return res.status(401).json({ message: "Missing auth headers" });
     }
@@ -15,6 +16,7 @@ const tokenCheck: RequestHandler = (req, res, next) => {
     }
 
     jwt.verify(token, config.jwt.secret, (err, payload) => {
+        
         if (err) {
             return res.status(401).json({ message: err.message });
         } else {

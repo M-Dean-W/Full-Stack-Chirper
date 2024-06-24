@@ -6,21 +6,21 @@ export async function fetchData(endpoint: string, method: string = 'GET', payloa
     try {
         const TOKEN = localStorage.getItem(TOKEN_KEY)
 
+        const headers: HeadersInit = {};
         const options: RequestInit = {
             method,
-            headers: {}
+            headers
         };
 
-        if(TOKEN) {
-            options.headers= { Authorization: `Bearer ${TOKEN}` }
-        }
+        if (TOKEN) {
+            headers.authorization = `Bearer ${TOKEN}`
+          }
 
         if (payload && method !== 'GET') {
-            options.headers = {
-                'Content-Type': 'application/json'
-            };
+            headers['Content-Type'] ='application/json'
             options.body = JSON.stringify(payload);
         }
+       
 
         const response = await fetch(`${BASE_URL}${endpoint}`, options);
 

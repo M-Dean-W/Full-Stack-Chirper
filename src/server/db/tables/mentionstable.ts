@@ -15,5 +15,5 @@ export function insertMention(chirp_id:number, user_id:number) {
 }
 
 export function deleteForChirp(chirp_id: number) {
-    return ModifyQuery("DELETE FROM Mentions WHERE chirp_id = ? ", [chirp_id]);
+    return ModifyQuery("DELETE FROM mentions WHERE chirp_id = ? ", [chirp_id]);
 }

@@ -9,6 +9,7 @@ const router = Router();
 router.post('/', async (req, res) => {
     const email = req.body.email
     const password = req.body.password
+
     try {
         const [userFound] = await db.users.findUser('email', email)
         if (userFound && compareHash(password, userFound.password)) {
