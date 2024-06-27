@@ -9,14 +9,14 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 const app = express();
 
 app.use(express.json());
+app.use(cors())
 
-if (isDevelopment) {
-	app.use(cors());
-}
 
 if (isProduction) {
 	app.use(express.static('public'));
 }
+
+app.get('/api/health', (req, res) => res.status(200).json({message: 'server is running!'}))
 
 app.use(routes)
 
